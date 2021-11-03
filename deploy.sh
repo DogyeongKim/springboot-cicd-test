@@ -30,7 +30,7 @@ then
 		echo "****************** app-cont"$var" container is removed ******************"
 
     echo ========================= port 값 : '7'$var'00'
-		docker run -itd -p '7'$var'00':8080 --name app-cont$var --net cicd-pipeline-test_mysql_net app-cont:latest
+		docker run -itd -p '7'$var'00':8080 --name app-cont$var --net springboot-cicd-test_mysql_net app-cont:latest
 		echo "****************** app-cont"$var" container is starting ******************"
 
 		sleep 10
@@ -38,9 +38,9 @@ then
 else
 	echo "================== springbootapp container is not exist ========================="
 
-	docker run -itd -p 7100:8080 --name app-cont1 --net cicd-pipeline-test_mysql_net app-cont:latest
-	docker run -itd -p 7200:8080 --name app-cont2 --net cicd-pipeline-test_mysql_net app-cont:latest
-	docker run -itd -p 7300:8080 --name app-cont3 --net cicd-pipeline-test_mysql_net app-cont:latest
+	docker run -itd -p 7100:8080 --name app-cont1 --net springboot-cicd-test_mysql_net app-cont:latest
+	docker run -itd -p 7200:8080 --name app-cont2 --net springboot-cicd-test_mysql_net app-cont:latest
+	docker run -itd -p 7300:8080 --name app-cont3 --net springboot-cicd-test_mysql_net app-cont:latest
 
 fi
 
