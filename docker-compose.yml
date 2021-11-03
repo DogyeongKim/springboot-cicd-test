@@ -1,0 +1,130 @@
+version: '3'
+
+networks:
+  mysql_net:
+    driver: bridge
+
+services:
+  jenkins:
+    build:
+      context: ./
+      dockerfile: Dockerfiles/Dockerfile_Jenkins
+    container_name: dockerJenkins
+    restart: always
+    ports:
+      - "8088:8080"
+      - "50000:50000"
+    expose:
+      - "8080"
+      - "50000"
+    volumes:
+      - '/jenkins:/var/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+  master:
+    build:
+      context: ./mysql/master
+    container_name: mysqlMaster
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+    networks:
+      - mysql_net
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - '33060:3306'
+    restart: always
+    volumes:
+      - ./mysql/master/data:/var/lib/mysql
+      - ./mysql/master/conf:/etc/mysql/conf.d
+      - ./mysql/init/:/docker-entrypoint-initdb.d/
+
+  slave1:
+    build:
+      context: ./mysql/slave1
+    container_name: mysqlSlave1
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=jpashop
+      - MYSQL_USER=repluser
+      - MYSQL_PASSWORD=repl1234
+    networks:
+      - mysql_net
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - '33061:3306'
+    restart: always
+    depends_on:
+      - master
+    volumes:
+      - ./mysql/slave1/data:/var/lib/mysql
+      - ./mysql/slave1/conf:/etc/mysql/conf.d
+
+  slave2:
+    build:
+      context: ./mysql/slave2
+    container_name: mysqlSlave2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=jpashop
+      - MYSQL_USER=repluser
+      - MYSQL_PASSWORD=repl1234
+    networks:
+      - mysql_net
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - '33062:3306'
+    restart: always
+    depends_on:
+      - slave1
+    volumes:
+      - ./mysql/slave2/data:/var/lib/mysql
+      - ./mysql/slave2/conf:/etc/mysql/conf.d
+
+  application1:
+    container_name: app-cont1
+    build:
+      context: ./
+      dockerfile: Dockerfiles/Dockerfile_Spring
+    ports:
+      - "7100:8080"
+    networks:
+      - mysql_net
+    restart: always
+    depends_on :
+      - slave2
+
+  application2:
+    container_name: app-cont2
+    image: "springboot-cicd-test_application1"
+    ports:
+      - "7200:8080"
+    networks:
+      - mysql_net
+    restart: always
+    depends_on :
+      - application1
+
+  application3:
+    container_name: app-cont3
+    image: "springboot-cicd-test_application1"
+    ports:
+      - "7300:8080"
+    networks:
+      - mysql_net
+    restart: always
+    depends_on :
+      - application2
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    volumes:
+      - './nginx/templates:/etc/nginx/templates'
+      - './nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf'
+    ports:
+      - "8000:8000"
+    networks:
+      - mysql_net
+    depends_on :
+      - application3

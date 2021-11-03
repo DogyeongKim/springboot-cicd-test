@@ -1,0 +1,10 @@
+FROM jenkins/jenkins:lts-jdk11
+
+#현재 유저권한으로
+USER $USER
+
+# docker 설치
+RUN curl -s https://get.docker.com/ | sh
+
+
+# ENTRYPOINT [ "chmod","+x","gradlew" ]
