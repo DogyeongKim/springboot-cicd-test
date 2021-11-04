@@ -1,20 +1,20 @@
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://master:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
-#    slave-list:
-#      - name: slave_1
-#        url: jdbc:mysql://slave1:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
-#      - name: slave_2
-#        url: jdbc:mysql://slave2:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
-#    username: root
-#    password: root1234
-#
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#    generate-ddl: true
-#    show-sql: true # DDL 출력
-#    properties:
-#      hiberante:
-#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://master:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    slave-list:
+      - name: slave_1
+        url: jdbc:mysql://slave1:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+      - name: slave_2
+        url: jdbc:mysql://slave2:3306/jpashop?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: root1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true # DDL 출력
+    properties:
+      hiberante:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
