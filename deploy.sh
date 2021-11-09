@@ -61,5 +61,5 @@ fi
 # 로그 파일 삭제
 rm -f docker_ps_log
 
-echo "################## github jenkins test3 !!!!!!!!!!!!!!!!!!"
+echo "################## github jenkins test4 !!!!!!!!!!!!!!!!!!"
 echo "#################### springbootapp shell end... ####################"
