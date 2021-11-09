@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'jpabook'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -16,12 +16,6 @@ configurations {
 
 repositories {
 	mavenCentral()
-}
-
-bootJar{
-	archivesBaseName = 'springboot-cicd-test'
-	archiveFileName = 'springboot-cicd-test.jar'
-	archiveVersion = "0.0.0"
 }
 
 dependencies {

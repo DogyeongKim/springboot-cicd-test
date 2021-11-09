@@ -1,5 +1,5 @@
 FROM openjdk:11-jdk
-ARG JAR_FILE=build/libs/springboot-cicd-test.jar
+ARG JAR_FILE=build/libs/springboot-cicd-test-0.0.1.jar
 COPY ${JAR_FILE} cicd.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/cicd.jar"]
