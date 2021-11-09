@@ -6,7 +6,7 @@ echo "==================== chmod +x gradlew... ===================="
 chmod +x ./gradlew
 
 echo "==================== gradlew clean and build... ===================="
-./gradlew clean build
+./gradlew clean build --stacktrace
 
 #도커 이미지 빌드
 echo "==================== docker SpringBootApp image is building ===================="
