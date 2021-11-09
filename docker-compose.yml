@@ -106,16 +106,16 @@ services:
     depends_on :
       - application1
 
-  application3:
-    container_name: app-cont3
-    image: "springboot-cicd-test_application1"
-    ports:
-      - "7300:8080"
-    networks:
-      - mysql_net
-    restart: always
-    depends_on :
-      - application2
+#  application3:
+#    container_name: app-cont3
+#    image: "springboot-cicd-test_application1"
+#    ports:
+#      - "7300:8080"
+#    networks:
+#      - mysql_net
+#    restart: always
+#    depends_on :
+#      - application2
 
   nginx:
     container_name: nginx
@@ -129,4 +129,4 @@ services:
     networks:
       - mysql_net
     depends_on :
-      - application3
+      - application2

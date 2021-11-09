@@ -22,7 +22,7 @@ echo "*** docker ps _log : "$(ls -ls | grep docker_ps_log)
 # -s : 파일의 크기가 0보다 크면 참
 if [ -s docker_ps_log ]
 then
-        for var in {1..3}
+        for var in {1..2}
         do
            condition=`docker ps -a | grep app-cont${var}`
                 if [ -n "${condition}" ]
@@ -51,7 +51,7 @@ else
         echo "==================== No SpringBootApp containers are running. ===================="
         docker run -itd -p 7100:8080 --name app-cont1 --net springboot-cicd-test_mysql_net app-cont:latest
         docker run -itd -p 7200:8080 --name app-cont2 --net springboot-cicd-test_mysql_net app-cont:latest
-        docker run -itd -p 7300:8080 --name app-cont3 --net springboot-cicd-test_mysql_net app-cont:latest
+        #docker run -itd -p 7300:8080 --name app-cont3 --net springboot-cicd-test_mysql_net app-cont:latest
 
         echo "==================== SpringBootApp containers(app-cont1,2,3) are running. ===================="
 
